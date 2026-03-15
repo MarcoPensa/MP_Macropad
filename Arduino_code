@@ -1,1 +1,184 @@
+#include "Keyboard.h"
 
+const int Col_1 = D0;
+const int Col_2 = D1;
+const int Col_3 = D2;
+const int Row_1 = D3;   int Row_1_State = 0;
+const int Row_2 = D7;   int Row_2_State = 0;
+const int Row_3 = D8;   int Row_3_State = 0;
+const int SW = D6;      int SW_State = 0;   int P_Button_State_SW = 1;
+int Count = 1;
+int Layer = 0;
+
+int Button_State_1 = 0;     int P_Button_State_1 = 1;
+int Button_State_2 = 0;     int P_Button_State_2 = 1;
+int Button_State_3 = 0;     int P_Button_State_3 = 1;
+int Button_State_4 = 0;     int P_Button_State_4 = 1;
+int Button_State_5 = 0;     int P_Button_State_5 = 1;
+int Button_State_6 = 0;     int P_Button_State_6 = 1;
+int Button_State_7 = 0;     int P_Button_State_7 = 1;
+int Button_State_8 = 0;     int P_Button_State_8 = 1;
+int Button_State_9 = 0;     int P_Button_State_9 = 1;
+
+
+
+
+
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(SW, INPUT);
+  pinMode(Row_1, INPUT);
+  pinMode(Row_2, INPUT);
+  pinMode(Row_3, INPUT);
+  pinMode(Col_1, OUTPUT);
+  pinMode(Col_2, OUTPUT);
+  pinMode(Col_3, OUTPUT);
+  Keyboard.begin();
+
+}
+
+void loop() {
+
+  Row_1_State = digitalRead(Row_1);
+  Row_2_State = digitalRead(Row_2);
+  Row_3_State = digitalRead(Row_3);
+  SW_State = digitalRead(SW);
+
+    switch(Count){
+
+        case 1:
+            digitalWrite(Col_1, HIGH);
+            digitalWrite(Col_2, LOW);
+            digitalWrite(Col_3, LOW);
+        break;
+
+        case 2:
+            digitalWrite(Col_1, LOW);
+            digitalWrite(Col_2, HIGH);
+            digitalWrite(Col_3, LOW);
+        break;
+
+        case 3:
+            digitalWrite(Col_1, LOW);
+            digitalWrite(Col_2, LOW);
+            digitalWrite(Col_3, HIGH);
+        break;
+        
+    }
+
+    if(Row_1_State == HIGH && Count == 2){
+      Button_State_1 = 1;
+      Serial.println("1");
+    }
+
+    if(Row_2_State == HIGH && Count == 2){
+      Button_State_2 = 1;
+      Serial.println("2");
+    }
+
+    if(Row_3_State == HIGH && Count == 2){
+      Serial.println("3");
+      Button_State_3 = 1;
+    }
+
+    if(Row_1_State == HIGH && Count == 3){
+      Serial.println("4");
+      Button_State_4 = 1;
+    }
+
+    if(Row_2_State == HIGH && Count == 3){
+      Serial.println("5");
+      Button_State_5 = 1;
+    }
+
+    if(Row_3_State == HIGH && Count == 3){
+      Serial.println("6");
+      Button_State_6 = 1;
+    }
+
+    if(Row_1_State == HIGH && Count == 1){
+      Serial.println("7");
+      Button_State_7 = 1;
+    }
+
+    if(Row_2_State == HIGH && Count == 1){
+      Serial.println("8");
+      Button_State_8 = 1;
+    }
+
+    if(Row_3_State == HIGH && Count == 1){
+      Serial.println("9");
+      Button_State_9 = 1;
+    }
+
+    if((SW_State == HIGH) && (SW_State != P_Button_State_SW)){
+      Serial.print("SW");
+     // Layer++;
+    }
+
+    switch (Layer){
+        case 0:
+            if ((Button_State_1==1) && (Button_State_1 != P_Button_State_1)){
+              Keyboard.press('a');
+            }
+            if((Button_State_2==1) && (Button_State_2 != P_Button_State_2)){
+              Keyboard.press('b');
+            }
+
+            if((Button_State_3 = 1) && (Button_State_3 != P_Button_State_3)){
+              Keyboard.press('c');
+            }
+
+            if((Button_State_4 = 1) && (Button_State_4 != P_Button_State_4)){
+              Keyboard.press('d');
+            }
+
+            if((Button_State_5 = 1) && (Button_State_5 != P_Button_State_5)){
+              Keyboard.press('e');
+            }
+
+            if((Button_State_6 = 1) && (Button_State_6 != P_Button_State_6)){
+              Keyboard.press('f');
+            }
+
+            if((Button_State_7 = 1) && (Button_State_7 != P_Button_State_7)){
+              Keyboard.press('g');
+            }
+
+            if((Button_State_8 = 1) && (Button_State_8 != P_Button_State_8)){
+              Keyboard.press('h');
+            }
+
+            if((Button_State_9 = 1) && (Button_State_9 != P_Button_State_9)){
+              Keyboard.press('i');
+            }
+
+        break;
+    //add more layers here
+    }
+    
+
+    P_Button_State_1 = Button_State_1;
+    P_Button_State_2 = Button_State_2;
+    P_Button_State_3 = Button_State_3;
+    P_Button_State_4 = Button_State_4;
+    P_Button_State_5 = Button_State_5;
+    P_Button_State_6 = Button_State_6;
+    P_Button_State_7 = Button_State_7;
+    P_Button_State_8 = Button_State_8;
+    P_Button_State_9 = Button_State_9;
+    P_Button_State_SW = SW_State;
+
+
+    if (Layer == 1){//add more layers here
+      Layer = 0;
+    }
+    Count++;   
+    if(Count == 4){
+      Count = 1;
+    }
+    Keyboard.releaseAll();
+    delay(1);
+}
