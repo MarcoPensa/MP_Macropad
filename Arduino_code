@@ -158,87 +158,110 @@ void loop() {
 
     if((SW_State == HIGH) && (SW_State != P_Button_State_SW)){
       Layer++;
+      if (Layer == 2){//add more layers here
+        Layer = 0;
+      }
       Serial.print("SW  ");
       Serial.println(Layer);
     }
 
     switch (Layer){
-        case 0:
-          if ((Button_State_1 == 1) && (Button_State_1 != P_Button_State_1)){
-            Keyboard.press('a');
-          }
-          if((Button_State_2 == 1) && (Button_State_2 != P_Button_State_2)){
-            Keyboard.press('b');
-          }
+      case 0:
+        if ((Button_State_1 == 1) && (Button_State_1 != P_Button_State_1)){
+            Keyboard.press(KEY_LEFT_CTRL);
+          Keyboard.press('a');
+        }
 
-          if((Button_State_3 == 1) && (Button_State_3 != P_Button_State_3)){
-            Keyboard.press('c');
-          }
+        if((Button_State_2 == 1) && (Button_State_2 != P_Button_State_2)){
+          Keyboard.press(KEY_LEFT_CTRL);
+          Keyboard.press('v');
 
-          if((Button_State_4 == 1) && (Button_State_4 != P_Button_State_4)){
-            Keyboard.press('d');
-          }
+        }
 
-          if((Button_State_5 == 1) && (Button_State_5 != P_Button_State_5)){
-            Keyboard.press('e');
-          }
+        if((Button_State_3 == 1) && (Button_State_3 != P_Button_State_3)){
+          Keyboard.press(KEY_LEFT_CTRL);
+          Keyboard.press('c');
+        }
 
-          if((Button_State_6 == 1) && (Button_State_6 != P_Button_State_6)){
-            Keyboard.press('f');
-          }
+        if((Button_State_4 == 1) && (Button_State_4 != P_Button_State_4)){
+          Keyboard.press('d');
 
-          if((Button_State_7 == 1) && (Button_State_7 != P_Button_State_7)){
-            Keyboard.press('g');
-          }
+        }
 
-          if((Button_State_8 == 1) && (Button_State_8 != P_Button_State_8)){
-            Keyboard.press('h');
-          }
+        if((Button_State_5 == 1) && (Button_State_5 != P_Button_State_5)){
+          Keyboard.press('e');
 
-          if((Button_State_9 == 1) && (Button_State_9 != P_Button_State_9)){
-            Keyboard.press('i');
-          }
+        }
 
-        break;
+        if((Button_State_6 == 1) && (Button_State_6 != P_Button_State_6)){
+          Keyboard.press('f');
+          Keyboard.press(KEY_LEFT_CTRL);
+        }
 
-        case 1:
-          if ((Button_State_1 == 1) && (Button_State_1 != P_Button_State_1)){
-            Keyboard.press('l');
-          }
-          if((Button_State_2 == 1) && (Button_State_2 != P_Button_State_2)){
-            Keyboard.press('m');
-          }
+        if((Button_State_7 == 1) && (Button_State_7 != P_Button_State_7)){
+          Keyboard.press('g');
 
-          if((Button_State_3 == 1) && (Button_State_3 != P_Button_State_3)){
-            Keyboard.press('n');
-          }
+        }
 
-          if((Button_State_4 == 1) && (Button_State_4 != P_Button_State_4)){
-            Keyboard.press('o');
-          }  
+        if((Button_State_8 == 1) && (Button_State_8 != P_Button_State_8)){
+          Keyboard.press('h');
 
-          if((Button_State_5 == 1) && (Button_State_5 != P_Button_State_5)){
-            Keyboard.press('p');
-          }
+        }
 
-          if((Button_State_6 == 1) && (Button_State_6 != P_Button_State_6)){
-            Keyboard.press('q');
-          }
+        if((Button_State_9 == 1) && (Button_State_9 != P_Button_State_9)){
+          Keyboard.press('i');
 
-          if((Button_State_7 == 1) && (Button_State_7 != P_Button_State_7)){
-            Keyboard.press('r');
-          }
+        }
 
-          if((Button_State_8 == 1) && (Button_State_8 != P_Button_State_8)){
-            Keyboard.press('s');
-          }
+      break;
 
-          if((Button_State_9 == 1) && (Button_State_9 != P_Button_State_9)){
-            Keyboard.press('t');
-          }
+      case 1:
+        if ((Button_State_1 == 1) && (Button_State_1 != P_Button_State_1)){
+          Keyboard.press('l');
 
-        break;        
-    //add more layers here
+        }
+
+        if((Button_State_2 == 1) && (Button_State_2 != P_Button_State_2)){
+          Keyboard.press('m');
+
+        }
+
+        if((Button_State_3 == 1) && (Button_State_3 != P_Button_State_3)){
+          Keyboard.press('n');
+
+        }
+
+        if((Button_State_4 == 1) && (Button_State_4 != P_Button_State_4)){
+          Keyboard.press('o');
+
+        }
+
+        if((Button_State_5 == 1) && (Button_State_5 != P_Button_State_5)){
+          Keyboard.press('p');
+
+        }
+
+        if((Button_State_6 == 1) && (Button_State_6 != P_Button_State_6)){
+          Keyboard.press('q');
+
+        }
+
+        if((Button_State_7 == 1) && (Button_State_7 != P_Button_State_7)){
+          Keyboard.press('r');
+
+        }
+
+        if((Button_State_8 == 1) && (Button_State_8 != P_Button_State_8)){
+          Keyboard.press('s');
+
+        }
+
+        if((Button_State_9 == 1) && (Button_State_9 != P_Button_State_9)){
+          Keyboard.press('t');
+
+        }
+
+      break;    //add more layers here
     }
     
 
@@ -254,13 +277,11 @@ void loop() {
     P_Button_State_SW = SW_State;
 
 
-    if (Layer == 2){//add more layers here
-      Layer = 0;
-    }
+
     Count++;   
     if(Count == 4){
       Count = 1;
     }
     Keyboard.releaseAll();
     delay(1);
-}
+  }
